@@ -13,7 +13,7 @@ resource "aws_ecs_task_definition" "ecs_task_task_definition" {
   container_definitions = jsonencode([
     {
       name      = "mymvcweb"
-      image     = "972251037418.dkr.ecr.us-east-1.amazonaws.com/mymvcweb:latest"
+      image     = var.mymvcweb-repo-url
       cpu       = 0
       memory    = 1024
       essential = true
@@ -27,7 +27,7 @@ resource "aws_ecs_task_definition" "ecs_task_task_definition" {
     },
     {
       name      = "reverse-proxy"
-      image     = "972251037418.dkr.ecr.us-east-1.amazonaws.com/reverseproxy:latest"
+      image     = var.reverseproxy-repo-url
       cpu       = 0
       memory    = 1024
       essential = true
@@ -64,5 +64,5 @@ resource "aws_ecs_service" "ecs_task_service" {
     assign_public_ip = true
   }
   
-  depends_on = [ aws_lb_listener.front_end ]
+  depends_on = [ aws_lb_listener.ecs_task_alb_listener ]
 }

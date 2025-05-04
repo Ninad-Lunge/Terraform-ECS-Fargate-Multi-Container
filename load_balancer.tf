@@ -34,7 +34,7 @@ resource "aws_lb_target_group" "ecs_task_alb_target_group" {
 }
 
 # ALB Listener
-resource "aws_lb_listener" "front_end" {
+resource "aws_lb_listener" "ecs_task_alb_listener" {
   load_balancer_arn = aws_lb.ecs_task_alb.arn
   port              = "80"
   protocol          = "HTTP"
